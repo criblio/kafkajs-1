@@ -155,7 +155,7 @@ module.exports = ({
   }
 
    /** @type {import("../../types").Consumer["stop"]} */
-  const stop = sharedPromiseTo(async () => {
+  const stop = async () => {
     try {
       if (runner) {
         await runner.stop()
