@@ -163,8 +163,6 @@ module.exports = ({
         consumerGroup = null
         instrumentationEmitter.emit(STOP)
       }
-
-      clearTimeout(restartTimeout)
       logger.info('Stopped', { groupId })
     } catch (e) {
       logger.error(`Caught error when stopping the consumer: ${e.message}`, {
