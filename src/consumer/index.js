@@ -154,8 +154,8 @@ module.exports = ({
     }
   }
 
-  /** @type {import("../../types").Consumer["stop"]} */
-  const stop = async () => {
+   /** @type {import("../../types").Consumer["stop"]} */
+  const stop = sharedPromiseTo(async () => {
     try {
       if (runner) {
         await runner.stop()
@@ -164,9 +164,17 @@ module.exports = ({
         instrumentationEmitter.emit(STOP)
       }
 
+      clearTimeout(restartTimeout)
       logger.info('Stopped', { groupId })
-    } catch (e) {}
-  }
+    } catch (e) {
+      logger.error(`Caught error when stopping the consumer: ${e.message}`, {
+        stack: e.stack,
+        groupId,
+      })
+
+      throw e
+    }
+  })
 
   /** @type {import("../../types").Consumer["subscribe"]} */
   const subscribe = async ({ topic, fromBeginning = false }) => {
