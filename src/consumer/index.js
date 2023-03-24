@@ -174,7 +174,7 @@ module.exports = ({
 
       throw e
     }
-  })
+  }
 
   /** @type {import("../../types").Consumer["subscribe"]} */
   const subscribe = async ({ topic, fromBeginning = false }) => {
