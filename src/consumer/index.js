@@ -139,8 +139,9 @@ module.exports = ({
   /** @type {import("../../types").Consumer["disconnect"]} */
   const disconnect = async () => {
     try {
+      logger.info('consumer disconnecting', { groupId })
       await stop()
-      logger.debug('consumer has stopped, disconnecting', { groupId })
+      logger.info('consumer has stopped, disconnecting', { groupId })
       await cluster.disconnect()
       instrumentationEmitter.emit(DISCONNECT)
     } catch (e) {
